@@ -1,10 +1,10 @@
 module Point_detection (
 	input clk,    // Clock rate same as pixel rate
 	input rst,  // Asynchronous reset active low
-	input i_start,
-	input i_finish,
-	input [9:0] i_left_edge,
-	input [8:0] i_y,
+	input i_start, // from detection controller
+	input i_finish, // from detection controller
+	input [9:0] i_left_edge, // from vga x 
+	input [8:0] i_y, // from vga y
 	output o_finished,
 	output [9:0] o_centerX, // output x for camera or vga to store its value
 	output [8:0] o_centerY
