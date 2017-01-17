@@ -53,7 +53,8 @@ module	VGA_Controller(	//	Host Side
 						oVGA_V_SYNC,
 						oVGA_SYNC,
 						oVGA_BLANK,
-
+						o_x,
+						o_y,
 						//	Control Signal
 						iCLK,
 						iRST_N,
@@ -104,6 +105,8 @@ output	reg			oRequest;
 output	reg	[9:0]	oVGA_R;
 output	reg	[9:0]	oVGA_G;
 output	reg	[9:0]	oVGA_B;
+output 		[9:0]	o_x
+output		[9:0]	o_y;
 output	reg			oVGA_H_SYNC;
 output	reg			oVGA_V_SYNC;
 output	reg			oVGA_SYNC;
@@ -144,6 +147,8 @@ assign	mVGA_G	=	(	H_Cont>=X_START 	&& H_Cont<X_START+H_SYNC_ACT &&
 assign	mVGA_B	=	(	H_Cont>=X_START 	&& H_Cont<X_START+H_SYNC_ACT &&
 						V_Cont>=Y_START+v_mask 	&& V_Cont<Y_START+V_SYNC_ACT )
 						?	iBlue	:	0;
+assign o_x = H_Cont;
+assign o_y = V_Cont;
 
 always@(posedge iCLK or negedge iRST_N)
 	begin

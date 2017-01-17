@@ -2,11 +2,11 @@ module SoundContro(
 	output [2:0] o_sound_num
 	input [9:0] i_x,
 	input [9:0] i_y,
-	input [9:0] i_vga_r,
-	input [9:0] i_vga_g,
-	input [9:0] i_vga_b,
+	input [7:0] i_vga_r,
+	input [7:0] i_vga_g,
+	input [7:0] i_vga_b,
 	input [2:0] i_mask, //000:don't save ,001:save p1 ,010:p2 ,011:p3 ,100:p4 
-	input state //0:record 1:play
+	input state //1:record 0:play
 	);
 	
 	reg [9:0]  n_p1x,p1x;
@@ -33,8 +33,8 @@ module SoundContro(
 	assign o_sound_num=sound_num;
 	
 	always@(posedge iCLK)begin
-		if(state==0)begin
-		case(mask)
+		if(state==1)begin
+		case(i_mask)
 			3'b000:
 			 n_p1x <= p1x;
 			 n_p1y <= p1y;
@@ -146,7 +146,7 @@ module SoundContro(
 			 n_vga_b4 <= i_vga_b; //
 		endcase
 		end
-		else if(state==1)begin
+		else if(state==0)begin
 			 n_p1x <= p1x;
 			 n_p1y <= p1y;
 			 n_p2x <= p2x;

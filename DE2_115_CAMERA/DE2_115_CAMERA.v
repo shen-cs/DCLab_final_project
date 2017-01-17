@@ -466,6 +466,20 @@ wire	[9:0]	oVGA_B;   				//	VGA Blue[9:0]
 
 //power on start
 wire             auto_start;
+
+// point detection
+wire start_detect;
+wire finish_detect;
+wire finished;
+wire [9:0] center_x;
+wire [9:0] center_y;
+wire [9:0] vga_x;
+wire [9:0] vga_y;
+
+// sound playing
+wire [2:0] sound_num;
+reg state_w, state_r;
+wire [2:0] mask;
 //=======================================================
 //  Structural coding
 //=======================================================
@@ -656,6 +670,8 @@ VGA_Controller		u1	(	//	Host Side
 							.oVGA_R(oVGA_R),
 							.oVGA_G(oVGA_G),
 							.oVGA_B(oVGA_B),
+							.o_x(vga_x),
+							.o_y(vga_y),
 							.oVGA_H_SYNC(VGA_HS),
 							.oVGA_V_SYNC(VGA_VS),
 							.oVGA_SYNC(VGA_SYNC_N),
@@ -665,5 +681,13 @@ VGA_Controller		u1	(	//	Host Side
 							.iRST_N(DLY_RST_2),
 							.iZOOM_MODE_SW(SW[16])
 						);
+
+Point_detection    pd(.clk(VGA_CTRL_CLK), .rst(DLY_RST_2), .i_start(start_detect), .i_finish(finish_detect), 
+					  .i_left_edge(o_x), .i_y(o_y), o_finished(finished), o_centerX(center_x), o_centerY(center_y), .o_mask(mask));
+
+Detection_controller dc(.clk(VGA_CTRL_CLK), .rst(DLY_RST_2), .vga_r(VGA_R), .vga_g(VGA_G), .vga_b(VGA_B), .video_active(o_request), .start_detect(start_detect), .finish_detect(finish_detect));
+
+
+SoundContro   	   sc(.i_x(vga_x), .i_y(vga_y), i_vga_r(VGA_R) , i_vga_g(VGA_G), i_vga_b(VGA_B), .i_mask(mask), .state(state_r), .o_sound_num(o_sound_num));
 
 endmodule
