@@ -1,0 +1,42 @@
+
+State Machine - |DE2_115|LCD_SHOW:lcd0|state_r
+Name state_r.S_Index_Incr state_r.S_Delay state_r.S_Wait_Done state_r.S_Start 
+state_r.S_Start 0 0 0 0 
+state_r.S_Wait_Done 0 0 1 1 
+state_r.S_Delay 0 1 0 1 
+state_r.S_Index_Incr 1 0 0 1 
+
+State Machine - |DE2_115|LCD_SHOW:lcd0|LCD_controller:lcdctrl0|state_r
+Name state_r.S_DONE state_r.S_DELAY state_r.S_SETUP state_r.S_IDLE 
+state_r.S_IDLE 0 0 0 0 
+state_r.S_SETUP 0 0 1 1 
+state_r.S_DELAY 0 1 0 1 
+state_r.S_DONE 1 0 0 1 
+
+State Machine - |DE2_115|SRAMCommunicator:s1|state_r
+Name state_r.Delay state_r.Write state_r.Read state_r.Wait 
+state_r.Wait 0 0 0 0 
+state_r.Read 0 0 1 1 
+state_r.Write 0 1 0 1 
+state_r.Delay 1 0 0 1 
+
+State Machine - |DE2_115|PLAY:p1|state_r
+Name state_r.PAUSE state_r.PLAY_RIGHT state_r.PLAY_LEFT state_r.STOP 
+state_r.STOP 0 0 0 0 
+state_r.PLAY_LEFT 0 0 1 1 
+state_r.PLAY_RIGHT 0 1 0 1 
+state_r.PAUSE 1 0 0 1 
+
+State Machine - |DE2_115|Record:record|state_r
+Name state_r.RESET state_r.PAUSE state_r.RECORD 
+state_r.RESET 0 0 0 
+state_r.RECORD 1 0 1 
+state_r.PAUSE 1 1 0 
+
+State Machine - |DE2_115|Initialize:i0|I2cSender:i2c0|state_r
+Name state_r.ack state_r.send state_r.start state_r.stop state_r.finish 
+state_r.stop 0 0 0 0 0 
+state_r.start 0 0 1 1 0 
+state_r.send 0 1 0 1 0 
+state_r.ack 1 0 0 1 0 
+state_r.finish 0 0 0 1 1 

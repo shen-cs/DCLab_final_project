@@ -1,0 +1,36 @@
+module PLAY(
+    //total reset signal
+    input i_rst,
+    //clock signal
+    input i_clk,
+    //key, sw
+	 input i_stop,
+	 input i_playorpause,
+	 input i_spdup,
+    input i_spddown,
+	 input i_record,	//SW[0], play(0), record(1)
+    input i_interpolation, //SW[1]
+    
+    //outputs to LCD
+    output [1:0] o_state,
+    output [3:0] o_play_speed,
+    
+    //  inputs/outputs from/to codec
+    input i_aud_DAClrck, //AUD_DACCLRCK
+    output o_aud_DACdat, //AUD_DACDAT
+    
+    //  inputs/outputs from/to SRAM Communicator
+    output o_sram_start,
+    input [15:0]i_sram_data,
+	 input i_sram_play_complete,
+    output [3:0] o_speedup_parameter
+	 
+);
+
+
+always_comb begin
+end
+
+always_ff@(posedge i_clk) begin 
+end 
+endmodule
